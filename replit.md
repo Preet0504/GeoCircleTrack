@@ -8,7 +8,18 @@ A real-time geolocation web application with admin and user modes featuring dyna
 **Last Updated**: October 13, 2025
 
 ## Recent Changes
-- **October 13, 2025**: 
+- **October 13, 2025 (Latest)**: 
+  - **Mobile-Responsive Design**: Full mobile support with responsive layouts
+    - Desktop: Side panels (admin left, user right) with map in center
+    - Mobile: Bottom floating panel with max 40vh height, full-width map
+    - Header and controls adapt to screen size (icon-only on small screens)
+    - Compact spacing and layouts on mobile devices
+  - **Enhanced User Visibility Logic**: 
+    - Coordinates hidden by default in user mode
+    - Only show coordinate when user enters its radius coverage
+    - Display only the nearest coordinate when inside multiple radii
+    - Maintains mystery/exploration aspect of the app
+- **October 13, 2025 (Initial)**: 
   - Initial implementation of complete geolocation tracking system
   - Database schema with coordinates and active config tables
   - WebSocket server for real-time communication
@@ -91,14 +102,16 @@ Real-time updates via WebSocket at `/ws`:
 
 ### User Mode
 1. **Proximity-Based Visibility**
-   - Coordinates visible only when inside radius
+   - **Hidden by default**: No coordinates shown until user enters a radius
+   - **Single coordinate display**: Only shows the nearest coordinate when inside any radius
+   - **Automatic switching**: If inside multiple radii, displays only the closest one
    - Real-time distance calculation using Haversine formula
    - Status indicator (Inside/Outside radius)
 
 2. **Distance Metrics**
-   - Nearest coordinate distance display
+   - Nearest coordinate distance display (from all active coordinates)
    - Live proximity status updates
-   - Visible coordinates list (filtered by radius)
+   - Visible coordinates panel (shows only the one coordinate user is inside)
 
 ### Location Tracking
 1. **Permission Management**
@@ -135,6 +148,8 @@ Real-time updates via WebSocket at `/ws`:
 - Map-centric UI design
 - Minimal, functional controls
 - Real-time feedback for all actions
+- Mobile-first responsive design
+- Privacy-focused user mode (coordinates hidden until discovered)
 
 ## Running the Project
 1. Start development server: `npm run dev`
