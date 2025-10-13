@@ -21,7 +21,7 @@ export function LocationPermissionModal({
 }: LocationPermissionModalProps) {
   return (
     <Dialog open={isOpen}>
-      <DialogContent className="sm:max-w-md" data-testid="modal-location-permission">
+      <DialogContent className="sm:max-w-md z-[9999]" data-testid="modal-location-permission">
         <DialogHeader>
           <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10">
             {permissionDenied ? (

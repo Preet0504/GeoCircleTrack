@@ -56,8 +56,13 @@ export function AdminControls({
   };
 
   return (
-    <div className={isMobile ? "w-full" : "w-80 border-r border-card-border h-full overflow-y-auto"} data-testid="admin-controls">
-      <div className={isMobile ? "p-3 space-y-3" : "p-6 space-y-6"}>
+    <div className={isMobile ? "w-full pb-2" : "w-80 border-r border-card-border h-full overflow-y-auto"} data-testid="admin-controls">
+      <div className={isMobile ? "px-3 pb-3 space-y-2" : "p-6 space-y-6"}>
+        {isMobile && (
+          <div className="pb-2">
+            <h2 className="text-lg font-semibold">Admin Controls</h2>
+          </div>
+        )}
         {!isMobile && (
           <div>
             <h2 className="text-2xl font-semibold mb-1">Admin Controls</h2>
@@ -65,11 +70,11 @@ export function AdminControls({
           </div>
         )}
 
-        <Card>
-          <CardHeader className="space-y-0 pb-4">
-            <CardTitle className="text-lg">Add Coordinates</CardTitle>
+        <Card className={isMobile ? "shadow-sm" : ""}>
+          <CardHeader className={isMobile ? "space-y-0 pb-2 p-3" : "space-y-0 pb-4"}>
+            <CardTitle className={isMobile ? "text-base" : "text-lg"}>Add Coordinates</CardTitle>
           </CardHeader>
-          <CardContent>
+          <CardContent className={isMobile ? "p-3 pt-0" : ""}>
             <Button 
               onClick={onAddCoordinateToggle}
               variant={isAddingCoordinate ? "default" : "outline"}
@@ -85,12 +90,12 @@ export function AdminControls({
           </CardContent>
         </Card>
 
-        <Card>
-          <CardHeader className="space-y-0 pb-4">
-            <CardTitle className="text-lg">All Coordinates ({coordinates.length})</CardTitle>
+        <Card className={isMobile ? "shadow-sm" : ""}>
+          <CardHeader className={isMobile ? "space-y-0 pb-2 p-3" : "space-y-0 pb-4"}>
+            <CardTitle className={isMobile ? "text-base" : "text-lg"}>All Coordinates ({coordinates.length})</CardTitle>
           </CardHeader>
-          <CardContent>
-            <ScrollArea className="h-48">
+          <CardContent className={isMobile ? "p-3 pt-0" : ""}>
+            <ScrollArea className={isMobile ? "h-32" : "h-48"}>
               {coordinates.length === 0 ? (
                 <div className="text-sm text-muted-foreground text-center py-8">
                   No coordinates added yet
@@ -125,11 +130,11 @@ export function AdminControls({
           </CardContent>
         </Card>
 
-        <Card>
-          <CardHeader className="space-y-0 pb-4">
-            <CardTitle className="text-lg">Generate Random K</CardTitle>
+        <Card className={isMobile ? "shadow-sm" : ""}>
+          <CardHeader className={isMobile ? "space-y-0 pb-2 p-3" : "space-y-0 pb-4"}>
+            <CardTitle className={isMobile ? "text-base" : "text-lg"}>Generate Random K</CardTitle>
           </CardHeader>
-          <CardContent className="space-y-4">
+          <CardContent className={isMobile ? "p-3 pt-0 space-y-3" : "space-y-4"}>
             <div>
               <Label htmlFor="k-value" className="text-sm">Number of coordinates (k)</Label>
               <Input
@@ -158,11 +163,11 @@ export function AdminControls({
           </CardContent>
         </Card>
 
-        <Card>
-          <CardHeader className="space-y-0 pb-4">
-            <CardTitle className="text-lg">Radius Settings</CardTitle>
+        <Card className={isMobile ? "shadow-sm" : ""}>
+          <CardHeader className={isMobile ? "space-y-0 pb-2 p-3" : "space-y-0 pb-4"}>
+            <CardTitle className={isMobile ? "text-base" : "text-lg"}>Radius Settings</CardTitle>
           </CardHeader>
-          <CardContent className="space-y-4">
+          <CardContent className={isMobile ? "p-3 pt-0 space-y-3" : "space-y-4"}>
             <div>
               <div className="flex justify-between items-center mb-2">
                 <Label className="text-sm">Radius (meters)</Label>
@@ -185,11 +190,11 @@ export function AdminControls({
           </CardContent>
         </Card>
 
-        <Card>
-          <CardHeader className="space-y-0 pb-4">
-            <CardTitle className="text-lg">Auto Rotation</CardTitle>
+        <Card className={isMobile ? "shadow-sm" : ""}>
+          <CardHeader className={isMobile ? "space-y-0 pb-2 p-3" : "space-y-0 pb-4"}>
+            <CardTitle className={isMobile ? "text-base" : "text-lg"}>Auto Rotation</CardTitle>
           </CardHeader>
-          <CardContent className="space-y-4">
+          <CardContent className={isMobile ? "p-3 pt-0 space-y-3" : "space-y-4"}>
             <div>
               <Label htmlFor="interval" className="text-sm">Interval (seconds)</Label>
               <Input

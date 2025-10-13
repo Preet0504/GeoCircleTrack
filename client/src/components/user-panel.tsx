@@ -13,8 +13,13 @@ interface UserPanelProps {
 
 export function UserPanel({ visibleCoordinates, isInsideRadius, nearestDistance, isMobile = false }: UserPanelProps) {
   return (
-    <div className={isMobile ? "w-full" : "w-72 border-l border-card-border h-full overflow-y-auto"} data-testid="user-panel">
-      <div className={isMobile ? "p-3 space-y-3" : "p-6 space-y-6"}>
+    <div className={isMobile ? "w-full pb-2" : "w-72 border-l border-card-border h-full overflow-y-auto"} data-testid="user-panel">
+      <div className={isMobile ? "px-3 pb-3 space-y-2" : "p-6 space-y-6"}>
+        {isMobile && (
+          <div className="pb-2">
+            <h2 className="text-lg font-semibold">User View</h2>
+          </div>
+        )}
         {!isMobile && (
           <div>
             <h2 className="text-2xl font-semibold mb-1">User View</h2>
@@ -22,11 +27,11 @@ export function UserPanel({ visibleCoordinates, isInsideRadius, nearestDistance,
           </div>
         )}
 
-        <Card>
-          <CardHeader className="space-y-0 pb-4">
-            <CardTitle className="text-lg">Status</CardTitle>
+        <Card className={isMobile ? "shadow-sm" : ""}>
+          <CardHeader className={isMobile ? "space-y-0 pb-2 p-3" : "space-y-0 pb-4"}>
+            <CardTitle className={isMobile ? "text-base" : "text-lg"}>Status</CardTitle>
           </CardHeader>
-          <CardContent className="space-y-4">
+          <CardContent className={isMobile ? "p-3 pt-0 space-y-3" : "space-y-4"}>
             <div className="flex items-center gap-3">
               {isInsideRadius ? (
                 <>
@@ -60,15 +65,15 @@ export function UserPanel({ visibleCoordinates, isInsideRadius, nearestDistance,
           </CardContent>
         </Card>
 
-        <Card>
-          <CardHeader className="space-y-0 pb-4">
-            <CardTitle className="text-lg">
+        <Card className={isMobile ? "shadow-sm" : ""}>
+          <CardHeader className={isMobile ? "space-y-0 pb-2 p-3" : "space-y-0 pb-4"}>
+            <CardTitle className={isMobile ? "text-base" : "text-lg"}>
               Visible Coordinates
               <Badge variant="secondary" className="ml-2">{visibleCoordinates.length}</Badge>
             </CardTitle>
           </CardHeader>
-          <CardContent>
-            <ScrollArea className="h-64">
+          <CardContent className={isMobile ? "p-3 pt-0" : ""}>
+            <ScrollArea className={isMobile ? "h-40" : "h-64"}>
               {visibleCoordinates.length === 0 ? (
                 <div className="text-sm text-muted-foreground text-center py-12">
                   Move closer to see coordinates
