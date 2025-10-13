@@ -9,6 +9,12 @@ A real-time geolocation web application with admin and user modes featuring dyna
 
 ## Recent Changes
 - **October 13, 2025 (Latest)**: 
+  - **Mobile Admin Navbar**: Tabbed navigation for mobile admin mode
+    - Three-tab layout: Coordinates, Random, and Settings
+    - Clean, organized interface for mobile configuration management
+    - Proper state synchronization with server configuration
+    - Desktop layout remains unchanged (sidebar approach)
+    - User mode maintains bottom floating panel design
   - **Enhanced Mobile Experience**: Improved mobile usability and visibility
     - Location permission modal now appears above all elements (z-index fix)
     - Bottom panel increased to 50vh with visual drag handle indicator
