@@ -183,31 +183,35 @@ export default function Home() {
 
   return (
     <div className="h-screen flex flex-col">
-      <header className="h-16 border-b border-border bg-card flex items-center justify-between px-6">
-        <div className="flex items-center gap-4">
-          <h1 className="text-xl font-semibold">GeoTracker</h1>
+      <header className="h-14 md:h-16 border-b border-border bg-card flex items-center justify-between px-3 md:px-6">
+        <div className="flex items-center gap-2 md:gap-4">
+          <h1 className="text-lg md:text-xl font-semibold">GeoTracker</h1>
           <ModeSelector mode={mode} onModeChange={setMode} />
         </div>
         <LocationStatus hasPermission={hasPermission === true} isTracking={location !== null} />
       </header>
 
-      <div className="flex-1 flex overflow-hidden">
+      <div className="flex-1 flex flex-col md:flex-row overflow-hidden">
+        {/* Desktop: Left Admin panel, Mobile: Hidden */}
         {mode === 'admin' && (
-          <AdminControls
-            coordinates={coordinates}
-            activeConfig={activeConfig || null}
-            isAddingCoordinate={isAddingCoordinate}
-            onAddCoordinateToggle={() => setIsAddingCoordinate(!isAddingCoordinate)}
-            onRemoveCoordinate={(id) => removeCoordinateMutation.mutate(id)}
-            onGenerateRandom={(k) => generateRandomMutation.mutate(k)}
-            onUpdateRadius={(radius) => updateRadiusMutation.mutate(radius)}
-            onUpdateInterval={(interval) => updateIntervalMutation.mutate(interval)}
-            onToggleAutoRotation={setIsAutoRotating}
-            isAutoRotating={isAutoRotating}
-          />
+          <div className="hidden md:block">
+            <AdminControls
+              coordinates={coordinates}
+              activeConfig={activeConfig || null}
+              isAddingCoordinate={isAddingCoordinate}
+              onAddCoordinateToggle={() => setIsAddingCoordinate(!isAddingCoordinate)}
+              onRemoveCoordinate={(id) => removeCoordinateMutation.mutate(id)}
+              onGenerateRandom={(k) => generateRandomMutation.mutate(k)}
+              onUpdateRadius={(radius) => updateRadiusMutation.mutate(radius)}
+              onUpdateInterval={(interval) => updateIntervalMutation.mutate(interval)}
+              onToggleAutoRotation={setIsAutoRotating}
+              isAutoRotating={isAutoRotating}
+            />
+          </div>
         )}
 
-        <div className="flex-1">
+        {/* Map - Full width on mobile */}
+        <div className="flex-1 relative">
           <MapView
             userLocation={location}
             coordinates={mode === 'admin' ? coordinates : activeCoordinates}
@@ -217,14 +221,44 @@ export default function Home() {
             onMapClick={handleMapClick}
             isAddingCoordinate={isAddingCoordinate}
           />
+
+          {/* Mobile: Floating panel at bottom */}
+          <div className="md:hidden absolute bottom-0 left-0 right-0 bg-card border-t border-card-border max-h-[40vh] overflow-y-auto">
+            {mode === 'admin' && (
+              <AdminControls
+                coordinates={coordinates}
+                activeConfig={activeConfig || null}
+                isAddingCoordinate={isAddingCoordinate}
+                onAddCoordinateToggle={() => setIsAddingCoordinate(!isAddingCoordinate)}
+                onRemoveCoordinate={(id) => removeCoordinateMutation.mutate(id)}
+                onGenerateRandom={(k) => generateRandomMutation.mutate(k)}
+                onUpdateRadius={(radius) => updateRadiusMutation.mutate(radius)}
+                onUpdateInterval={(interval) => updateIntervalMutation.mutate(interval)}
+                onToggleAutoRotation={setIsAutoRotating}
+                isAutoRotating={isAutoRotating}
+                isMobile={true}
+              />
+            )}
+            {mode === 'user' && (
+              <UserPanel
+                visibleCoordinates={visibleCoordinates}
+                isInsideRadius={isInsideRadius}
+                nearestDistance={nearestDistance}
+                isMobile={true}
+              />
+            )}
+          </div>
         </div>
 
+        {/* Desktop: Right User panel, Mobile: Hidden */}
         {mode === 'user' && (
-          <UserPanel
-            visibleCoordinates={visibleCoordinates}
-            isInsideRadius={isInsideRadius}
-            nearestDistance={nearestDistance}
-          />
+          <div className="hidden md:block">
+            <UserPanel
+              visibleCoordinates={visibleCoordinates}
+              isInsideRadius={isInsideRadius}
+              nearestDistance={nearestDistance}
+            />
+          </div>
         )}
       </div>
 

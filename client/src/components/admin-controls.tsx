@@ -19,6 +19,7 @@ interface AdminControlsProps {
   onUpdateInterval: (interval: number) => void;
   onToggleAutoRotation: (enabled: boolean) => void;
   isAutoRotating: boolean;
+  isMobile?: boolean;
 }
 
 export function AdminControls({
@@ -32,6 +33,7 @@ export function AdminControls({
   onUpdateInterval,
   onToggleAutoRotation,
   isAutoRotating,
+  isMobile = false,
 }: AdminControlsProps) {
   const [k, setK] = useState(3);
   const [radius, setRadius] = useState(activeConfig?.radius || 500);
@@ -54,12 +56,14 @@ export function AdminControls({
   };
 
   return (
-    <div className="w-80 bg-card border-r border-card-border h-full overflow-y-auto" data-testid="admin-controls">
-      <div className="p-6 space-y-6">
-        <div>
-          <h2 className="text-2xl font-semibold mb-1">Admin Controls</h2>
-          <p className="text-sm text-muted-foreground">Manage coordinates and settings</p>
-        </div>
+    <div className={isMobile ? "w-full" : "w-80 border-r border-card-border h-full overflow-y-auto"} data-testid="admin-controls">
+      <div className={isMobile ? "p-3 space-y-3" : "p-6 space-y-6"}>
+        {!isMobile && (
+          <div>
+            <h2 className="text-2xl font-semibold mb-1">Admin Controls</h2>
+            <p className="text-sm text-muted-foreground">Manage coordinates and settings</p>
+          </div>
+        )}
 
         <Card>
           <CardHeader className="space-y-0 pb-4">

@@ -8,16 +8,19 @@ interface UserPanelProps {
   visibleCoordinates: Coordinate[];
   isInsideRadius: boolean;
   nearestDistance: number | null;
+  isMobile?: boolean;
 }
 
-export function UserPanel({ visibleCoordinates, isInsideRadius, nearestDistance }: UserPanelProps) {
+export function UserPanel({ visibleCoordinates, isInsideRadius, nearestDistance, isMobile = false }: UserPanelProps) {
   return (
-    <div className="w-72 bg-card border-l border-card-border h-full overflow-y-auto" data-testid="user-panel">
-      <div className="p-6 space-y-6">
-        <div>
-          <h2 className="text-2xl font-semibold mb-1">User View</h2>
-          <p className="text-sm text-muted-foreground">Your proximity status</p>
-        </div>
+    <div className={isMobile ? "w-full" : "w-72 border-l border-card-border h-full overflow-y-auto"} data-testid="user-panel">
+      <div className={isMobile ? "p-3 space-y-3" : "p-6 space-y-6"}>
+        {!isMobile && (
+          <div>
+            <h2 className="text-2xl font-semibold mb-1">User View</h2>
+            <p className="text-sm text-muted-foreground">Your proximity status</p>
+          </div>
+        )}
 
         <Card>
           <CardHeader className="space-y-0 pb-4">
