@@ -154,15 +154,40 @@ export default function Home() {
 
   const visibleCoordinates =
     mode === 'user' && location && activeConfig
-      ? activeCoordinates.filter(coord =>
-          isWithinRadius(
-            location.latitude,
-            location.longitude,
-            coord.latitude,
-            coord.longitude,
-            activeConfig.radius
-          )
-        )
+      ? (() => {
+          // Find all coordinates within radius
+          const coordinatesWithinRadius = activeCoordinates.filter(coord =>
+            isWithinRadius(
+              location.latitude,
+              location.longitude,
+              coord.latitude,
+              coord.longitude,
+              activeConfig.radius
+            )
+          );
+          
+          // If user is inside any radius, show only the nearest one
+          if (coordinatesWithinRadius.length > 0) {
+            const nearest = coordinatesWithinRadius.reduce((prev, curr) => {
+              const prevDist = calculateDistance(
+                location.latitude,
+                location.longitude,
+                prev.latitude,
+                prev.longitude
+              );
+              const currDist = calculateDistance(
+                location.latitude,
+                location.longitude,
+                curr.latitude,
+                curr.longitude
+              );
+              return currDist < prevDist ? curr : prev;
+            });
+            return [nearest]; // Return only the nearest coordinate
+          }
+          
+          return []; // Return empty if not inside any radius
+        })()
       : [];
 
   const isInsideRadius = visibleCoordinates.length > 0;
@@ -214,7 +239,7 @@ export default function Home() {
         <div className="flex-1 relative">
           <MapView
             userLocation={location}
-            coordinates={mode === 'admin' ? coordinates : activeCoordinates}
+            coordinates={mode === 'admin' ? coordinates : visibleCoordinates}
             activeCoordinates={activeCoordinates}
             radius={activeConfig?.radius || 500}
             mode={mode}
