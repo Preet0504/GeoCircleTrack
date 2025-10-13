@@ -33,7 +33,9 @@ export const insertActiveConfigSchema = createInsertSchema(activeConfig).omit({
   lastRotated: true,
 });
 
-export const updateActiveConfigSchema = insertActiveConfigSchema.partial();
+export const updateActiveConfigSchema = insertActiveConfigSchema.partial().extend({
+  lastRotated: z.date().optional(),
+});
 
 // TypeScript types
 export type Coordinate = typeof coordinates.$inferSelect;

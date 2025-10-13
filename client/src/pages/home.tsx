@@ -17,7 +17,7 @@ export default function Home() {
   const [mode, setMode] = useState<'admin' | 'user'>('admin');
   const [isAddingCoordinate, setIsAddingCoordinate] = useState(false);
   const [isAutoRotating, setIsAutoRotating] = useState(false);
-  const [autoRotationInterval, setAutoRotationInterval] = useState<number | null>(null);
+  const [autoRotationInterval, setAutoRotationInterval] = useState<NodeJS.Timeout | null>(null);
   const { toast } = useToast();
   const { location, hasPermission, requestPermission } = useGeolocation();
   const { subscribe, send } = useWebSocket();
