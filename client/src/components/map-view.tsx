@@ -28,6 +28,7 @@ export function MapView({
   const activeCirclesRef = useRef<Map<string, L.Circle>>(new Map());
   const isAddingCoordinateRef = useRef(isAddingCoordinate);
   const onMapClickRef = useRef(onMapClick);
+  const hasInitializedLocation = useRef(false);
 
   useEffect(() => {
     isAddingCoordinateRef.current = isAddingCoordinate;
@@ -111,7 +112,11 @@ export function MapView({
       });
     }
 
-    mapRef.current.setView([userLocation.latitude, userLocation.longitude], mapRef.current.getZoom());
+    // Only center the map on the user's location the first time
+    if (!hasInitializedLocation.current) {
+      mapRef.current.setView([userLocation.latitude, userLocation.longitude], mapRef.current.getZoom());
+      hasInitializedLocation.current = true;
+    }
   }, [userLocation]);
 
   useEffect(() => {
