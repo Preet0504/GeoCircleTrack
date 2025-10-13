@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -37,6 +37,18 @@ export function MobileAdminNavbar({
   const [k, setK] = useState(3);
   const [radius, setRadius] = useState(activeConfig?.radius || 500);
   const [interval, setInterval] = useState(activeConfig?.timeInterval || 30);
+
+  useEffect(() => {
+    if (activeConfig?.radius !== undefined) {
+      setRadius(activeConfig.radius);
+    }
+  }, [activeConfig?.radius]);
+
+  useEffect(() => {
+    if (activeConfig?.timeInterval !== undefined) {
+      setInterval(activeConfig.timeInterval);
+    }
+  }, [activeConfig?.timeInterval]);
 
   const handleRadiusChange = (value: number[]) => {
     setRadius(value[0]);
