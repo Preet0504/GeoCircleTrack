@@ -4,6 +4,7 @@ import { useGeolocation } from '@/hooks/use-geolocation';
 import { useWebSocket } from '@/hooks/use-websocket';
 import { MapView } from '@/components/map-view';
 import { AdminControls } from '@/components/admin-controls';
+import { MobileAdminNavbar } from '@/components/mobile-admin-navbar';
 import { UserPanel } from '@/components/user-panel';
 import { ModeSelector } from '@/components/mode-selector';
 import { LocationStatus } from '@/components/location-status';
@@ -247,14 +248,10 @@ export default function Home() {
             isAddingCoordinate={isAddingCoordinate}
           />
 
-          {/* Mobile: Floating panel at bottom */}
-          <div className="md:hidden absolute bottom-0 left-0 right-0 bg-card border-t-2 border-card-border max-h-[50vh] overflow-y-auto shadow-2xl z-10 rounded-t-xl">
-            {/* Drag handle indicator */}
-            <div className="w-full py-2 flex justify-center bg-card rounded-t-xl sticky top-0 z-20">
-              <div className="w-12 h-1 bg-muted-foreground/30 rounded-full"></div>
-            </div>
-            {mode === 'admin' && (
-              <AdminControls
+          {/* Mobile: Bottom navbar/panel */}
+          {mode === 'admin' && (
+            <div className="md:hidden absolute bottom-0 left-0 right-0 z-10">
+              <MobileAdminNavbar
                 coordinates={coordinates}
                 activeConfig={activeConfig || null}
                 isAddingCoordinate={isAddingCoordinate}
@@ -265,18 +262,23 @@ export default function Home() {
                 onUpdateInterval={(interval) => updateIntervalMutation.mutate(interval)}
                 onToggleAutoRotation={setIsAutoRotating}
                 isAutoRotating={isAutoRotating}
-                isMobile={true}
               />
-            )}
-            {mode === 'user' && (
+            </div>
+          )}
+          {mode === 'user' && (
+            <div className="md:hidden absolute bottom-0 left-0 right-0 bg-card border-t-2 border-card-border max-h-[50vh] overflow-y-auto shadow-2xl z-10 rounded-t-xl">
+              {/* Drag handle indicator */}
+              <div className="w-full py-2 flex justify-center bg-card rounded-t-xl sticky top-0 z-20">
+                <div className="w-12 h-1 bg-muted-foreground/30 rounded-full"></div>
+              </div>
               <UserPanel
                 visibleCoordinates={visibleCoordinates}
                 isInsideRadius={isInsideRadius}
                 nearestDistance={nearestDistance}
                 isMobile={true}
               />
-            )}
-          </div>
+            </div>
+          )}
         </div>
 
         {/* Desktop: Right User panel, Mobile: Hidden */}
