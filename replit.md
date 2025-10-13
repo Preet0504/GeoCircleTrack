@@ -9,11 +9,14 @@ A real-time geolocation web application with admin and user modes featuring dyna
 
 ## Recent Changes
 - **October 13, 2025 (Latest)**: 
-  - **Mobile-Responsive Design**: Full mobile support with responsive layouts
+  - **Enhanced Mobile Experience**: Improved mobile usability and visibility
+    - Location permission modal now appears above all elements (z-index fix)
+    - Bottom panel increased to 50vh with visual drag handle indicator
+    - Stronger border and shadow for better panel visibility
+    - Compact card layouts with smaller text and reduced spacing on mobile
     - Desktop: Side panels (admin left, user right) with map in center
-    - Mobile: Bottom floating panel with max 40vh height, full-width map
+    - Mobile: Bottom floating panel with rounded top corners
     - Header and controls adapt to screen size (icon-only on small screens)
-    - Compact spacing and layouts on mobile devices
   - **Enhanced User Visibility Logic**: 
     - Coordinates hidden by default in user mode
     - Only show coordinate when user enters its radius coverage
