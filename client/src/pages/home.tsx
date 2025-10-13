@@ -250,7 +250,7 @@ export default function Home() {
 
           {/* Mobile: Bottom navbar/panel */}
           {mode === 'admin' && (
-            <div className="md:hidden absolute bottom-0 left-0 right-0 z-10">
+            <div className="md:hidden absolute bottom-0 left-0 right-0 z-[1000]">
               <MobileAdminNavbar
                 coordinates={coordinates}
                 activeConfig={activeConfig || null}
@@ -266,7 +266,7 @@ export default function Home() {
             </div>
           )}
           {mode === 'user' && (
-            <div className="md:hidden absolute bottom-0 left-0 right-0 bg-card border-t-2 border-card-border max-h-[50vh] overflow-y-auto shadow-2xl z-10 rounded-t-xl">
+            <div className="md:hidden absolute bottom-0 left-0 right-0 bg-card border-t-2 border-card-border max-h-[50vh] overflow-y-auto shadow-2xl z-[1000] rounded-t-xl">
               {/* Drag handle indicator */}
               <div className="w-full py-2 flex justify-center bg-card rounded-t-xl sticky top-0 z-20">
                 <div className="w-12 h-1 bg-muted-foreground/30 rounded-full"></div>
